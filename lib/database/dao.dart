@@ -10,7 +10,7 @@ abstract class MoviesDao {
 }
 
 abstract class GenresDao {
-  Future add(String id, String name);
+  Future add({String id, String name});
 
   Future remove(String id);
 

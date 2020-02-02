@@ -56,18 +56,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildListItem(Movie itemMovie, MoviesDao movieDatabase) {
-    return SizedBox(
-      height: 100,
-      width: 300,
-      child: Card(
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(itemMovie.name),
-            Text(itemMovie.createdAt.toIso8601String()),
-            Text(itemMovie.rating.toString()),
-            Text(itemMovie.description),
-            Text(itemMovie.id),
+            Text(" Movie  :  " + itemMovie.name),
+            Text(" Year   : " + itemMovie.year.toString()),
+            Text(" Rating   : " + itemMovie.rating.toString()),
+            Text(" Descripton  :  " + itemMovie.description),
           ],
         ),
       ),

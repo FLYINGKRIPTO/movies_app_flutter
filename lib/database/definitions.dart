@@ -24,6 +24,14 @@ class Artists extends Table {
   DateTimeColumn get createdAt => dateTime()();
 }
 
+/// whenever a genre is added to a movie it is not directly added to the movie
+/// database , it is added in a separate table which contains movie id and
+/// corresponding genre id
+class MovieGenresEntry extends Table {
+  TextColumn get movieId => text()();
+  TextColumn get genreId => text()();
+}
+
 class MovieWithGenres {
   final Movie movie;
   final List<Genre> genres;

@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<MoviesDao>(
           create: (_) => MoviesDB().sqlMoviesDao,
+        ),
+        Provider<GenresDao>(
+          create: (_) => MoviesDB().sqlGenresDao,
         )
       ],
       child: MaterialApp(

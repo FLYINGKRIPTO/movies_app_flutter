@@ -15,7 +15,7 @@ class SqlGenresDao extends DatabaseAccessor<MoviesDB>
 
   SqlGenresDao(this.db) : super(db);
   @override
-  Future add(String id, String name) {
+  Future add({String id, String name}) {
     final id = Uuid().v4();
     final creationTime = DateTime.now();
     final genreData = Genre(
@@ -44,4 +44,7 @@ class SqlGenresDao extends DatabaseAccessor<MoviesDB>
           ]))
         .watch();
   }
+
+  ///add tag to a movie
+
 }

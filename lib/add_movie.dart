@@ -18,6 +18,7 @@ class _AddMovieState extends State<AddMovie> {
   @override
   Widget build(BuildContext context) {
     final moviesDao = Provider.of<MoviesDao>(context);
+    final genreDao = Provider.of<GenresDao>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Add  Movie and Genre "),
@@ -107,13 +108,27 @@ class _AddMovieState extends State<AddMovie> {
                     padding: const EdgeInsets.all(16.0),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24.0)),
-                    onPressed: () {},
+                    onPressed: () {
+                      genre = genreFieldController.text;
+                      genreDao.add(name: genre);
+                    },
                     child: Text("Save Genre"),
                     color: Colors.blueAccent,
                     textColor: Colors.white,
                   ),
                 ),
               ),
+              RaisedButton(
+                onPressed: () {
+                  Future.delayed(Duration(seconds: 2), () {
+                    genreDao.allGenres().listen((event) {
+                      event.forEach((element) {
+                        debugPrint(element.name);
+                      });
+                    });
+                  });
+                },
+              )
             ],
           ),
         ),

@@ -841,6 +841,9 @@ abstract class _$MoviesDB extends GeneratedDatabase {
   SqlMoviesDao _sqlMoviesDao;
   SqlMoviesDao get sqlMoviesDao =>
       _sqlMoviesDao ??= SqlMoviesDao(this as MoviesDB);
+  SqlGenresDao _sqlGenresDao;
+  SqlGenresDao get sqlGenresDao =>
+      _sqlGenresDao ??= SqlGenresDao(this as MoviesDB);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
