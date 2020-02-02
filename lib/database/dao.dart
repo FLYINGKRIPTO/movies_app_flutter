@@ -2,7 +2,7 @@ import 'package:movies_app_flutter/database/database.dart';
 
 abstract class MoviesDao {
   Future add(
-      String id, String name, int year, String description, double rating);
+      {String id, String name, int year, String description, double rating});
 
   Future remove(String id);
 

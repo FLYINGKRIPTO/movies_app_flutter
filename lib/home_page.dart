@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app_flutter/add_movie.dart';
 import 'package:movies_app_flutter/database/dao.dart';
 import 'package:provider/provider.dart';
 
-import 'database.dart';
+import 'database/database.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,6 +11,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,46 +25,49 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[_buildMoviesList(context)],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddMovie()));
+        },
+        label: Text("Add Movie and Genre"),
+        icon: Icon(Icons.airplay),
+      ),
     );
   }
 
   StreamBuilder<List<Movie>> _buildMoviesList(BuildContext context) {
     final movieDatabase = Provider.of<MoviesDao>(context);
     return StreamBuilder(
-      stream: movieDatabase.allMovies(),
+      stream: movieDatabase?.allMovies(),
       builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
         final movies = snapshot.data ?? [];
-        return ListView.builder(
-            itemCount: movies.length,
-            itemBuilder: (context, index) {
-              final itemMovie = movies[index];
-              return _buildListItem(itemMovie, movieDatabase);
-            });
+        return Expanded(
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: movies.length ?? 0,
+              itemBuilder: (context, index) {
+                final itemMovie = movies[index];
+                return _buildListItem(itemMovie, movieDatabase);
+              }),
+        );
       },
     );
   }
 
   Widget _buildListItem(Movie itemMovie, MoviesDao movieDatabase) {
-    return Expanded(
+    return SizedBox(
+      height: 100,
+      width: 300,
       child: Card(
-        child: Row(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(itemMovie.name),
-                Text(itemMovie.createdAt.toIso8601String()),
-                Text(itemMovie.rating.toString()),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(itemMovie.description),
-                Text(itemMovie.id),
-              ],
-            )
+            Text(itemMovie.name),
+            Text(itemMovie.createdAt.toIso8601String()),
+            Text(itemMovie.rating.toString()),
+            Text(itemMovie.description),
+            Text(itemMovie.id),
           ],
         ),
       ),

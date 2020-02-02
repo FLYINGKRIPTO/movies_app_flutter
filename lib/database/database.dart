@@ -1,5 +1,6 @@
 import 'package:moor/moor.dart';
 import 'package:moor_flutter/moor_flutter.dart';
+import 'package:movies_app_flutter/database/genres_dao.dart';
 import 'package:movies_app_flutter/database/movies_dao.dart';
 
 import 'definitions.dart';
@@ -12,6 +13,7 @@ part 'database.g.dart';
   Genres,
 ], daos: [
   SqlMoviesDao,
+  SqlGenresDao,
 ])
 class MoviesDB extends _$MoviesDB {
   MoviesDB() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'db.sqlite'));

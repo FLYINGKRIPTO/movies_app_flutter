@@ -21,8 +21,12 @@ class SqlMoviesDao extends DatabaseAccessor<MoviesDB>
   SqlMoviesDao(this.db) : super(db);
 
   @override
-  Future add(String id, String name, int year, String description,
-      double rating) async {
+  Future add(
+      {String id,
+      String name,
+      int year,
+      String description,
+      double rating}) async {
     final id = Uuid().v4();
     final creationTime = DateTime.now();
     final movieData = Movie(
