@@ -38,6 +38,8 @@ class SqlMoviesDao extends DatabaseAccessor<MoviesDB>
       createdAt: creationTime,
     );
     return transaction(() async {
+      final doesSimilarMovieExists  = await (select(movies)..where((m) => m.name.equals(name))..limit(1)).get().then((items) => items.length == 1);
+      if(doesSimilarMovieExists) return;
       await into(movies).insert(movieData);
     });
   }

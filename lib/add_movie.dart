@@ -111,6 +111,7 @@ class _AddMovieState extends State<AddMovie> {
                     onPressed: () {
                       genre = genreFieldController.text;
                       genreDao.add(name: genre);
+                      genreFieldController.clear();
                     },
                     child: Text("Save Genre"),
                     color: Colors.blueAccent,
@@ -119,6 +120,7 @@ class _AddMovieState extends State<AddMovie> {
                 ),
               ),
               RaisedButton(
+                child: Text("Submit"),
                 onPressed: () {
                   Future.delayed(Duration(seconds: 2), () {
                     genreDao.allGenres().listen((event) {

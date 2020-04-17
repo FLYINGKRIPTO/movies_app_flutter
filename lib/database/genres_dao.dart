@@ -24,6 +24,9 @@ class SqlGenresDao extends DatabaseAccessor<MoviesDB>
       name: name,
     );
     return transaction(() async {
+      final doesSimilarGenreExists =
+      await (select(genres)..where((g) => g.name.equals(name))..limit(1)).get().then((items) => items.length == 1);
+      if(doesSimilarGenreExists) return;
       await into(genres).insert(genreData);
     });
   }
